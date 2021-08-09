@@ -1,18 +1,12 @@
 import { Sequelize } from 'sequelize'
+import { sequelize_config } from '../config/sequelizeConfig';
 
-const db_name: string = 'db_beyond_words';
-const db_user: string = 'root';
-const db_pw: string = '';
-const sequelize_info: Object = {
-  dialect: 'mysql',
-  host: 'localhost'
-};
 
 const sequelize = new Sequelize(
-  db_name,
-  db_user,
-  db_pw,
-  sequelize_info
+  sequelize_config.db_name,
+  sequelize_config.db_user,
+  sequelize_config.db_pw,
+  sequelize_config.sequelize_info as any
 )
 
 export default sequelize

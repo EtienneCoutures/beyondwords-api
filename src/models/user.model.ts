@@ -7,18 +7,18 @@ interface UserAttributes {
   firstname: string;
   lastname: string;
   email: string;
+  password: string;
   phone: string;
   address: string;
 }
 
-
-console.log("olaaa")
 
 export class User extends Model<UserAttributes> implements UserAttributes {
   public id!: number;
   public firstname!: string;
   public lastname!: string;
   public email!: string;
+  public password!: string;
   public phone!: string;
   public address!: string;
 
@@ -44,6 +44,11 @@ User.init({
   email: {
     type: new DataTypes.STRING(128),
     allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: new DataTypes.STRING(128),
+    allowNull: false,
   },
   phone: {
     type: new DataTypes.STRING(64),
@@ -58,6 +63,5 @@ User.init({
   sequelize
 })
 
-let debug: any
-
-async () => { debug = await sequelize.sync({ force: true }) };
+//let debug: any
+//sequelize.sync({ force: true });

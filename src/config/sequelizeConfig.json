@@ -1,9 +1,0 @@
-{
-    "db_name": "db_beyond_words",
-    "db_user": "root",
-    "db_pw": "",
-    "sequelize_info": {
-      "host": "localhost",
-      "dialect": "mysql"
-    }
-  }

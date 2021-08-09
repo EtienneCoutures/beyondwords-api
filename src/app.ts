@@ -3,6 +3,7 @@ import { Express } from "express-serve-static-core";
 import { Sequelize } from 'sequelize';
 import { User } from './models/user.model';
 import { initRoutes } from './routes/index';
+import { sequelize_config } from './config/sequelizeConfig';
 
 const port: number = 8080;
 
@@ -21,6 +22,7 @@ class Beyond {
     }
 
     initExpress() {
+        
         this.app = express();
         initRoutes(this.app);
         /*this.app.use(cors({
@@ -34,12 +36,10 @@ class Beyond {
 
     async initSequelize() {
         this.sequelize = new Sequelize(
-            "db_beyond_words",
-            "root",
-            "", {
-              "host": "localhost",
-              "dialect": "mysql"
-            }
+            sequelize_config.db_name,
+            sequelize_config.db_user,
+            sequelize_config.db_pw,
+            sequelize_config.sequelize_info as any
           );
         await this.sequelize.authenticate().then(() => {
             console.log("Connexion ok")
@@ -49,13 +49,15 @@ class Beyond {
     }
 }
 
-const beyond = new Beyond();
+export const beyond = new Beyond();
 
 const user = new User();
+
 user.firstname = "Bob";
 user.lastname = "Foo";
 user.email = "test@test.Fr";
 user.phone = "0677112233";
+user.password = 'testtest'
 user.address = "Rue du test";
 
 user.save().then(user => { console.log("user : ", user)}).catch(err => {
