@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from './index'
+import { UserCat } from './user_cat.model';
 
 
 interface UserAttributes {
@@ -63,5 +64,6 @@ User.init({
   sequelize
 })
 
+User.hasMany(UserCat, {as: "Categories"});
 //let debug: any
 //sequelize.sync({ force: true });
