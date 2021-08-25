@@ -1,35 +1,35 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from './index'
 
-interface UserCatAttributes {
+interface CatUnitAttributes {
     id: number;
-    user_id: number;
     cat_id: number;
+    unit_id: number;
     prog: number;
 }
 
 
-export class UserCat extends Model<UserCatAttributes> implements UserCatAttributes {
+export class CatUnit extends Model<CatUnitAttributes> implements CatUnitAttributes {
     public id!: number;
-    public user_id!: number;
     public cat_id!: number;
+    public unit_id!: number;
     public prog!: number;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
 
-UserCat.init({
+CatUnit.init({
     id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
     },
-    user_id: {
+    cat_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false
     },
-    cat_id: {
+    unit_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false
     },
@@ -38,10 +38,9 @@ UserCat.init({
         defaultValue: 0
     }
 }, {
-    tableName: 'UserCat',
+    tableName: 'CatUnit',
     sequelize
 })
 
 //sequelize.sync({ force: true });
-
 

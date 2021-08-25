@@ -1,5 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
+import { CatUnit } from './cat_unit.model';
 import sequelize from './index'
+import { Unit } from './unit.model';
 
 interface CategorieAttributes {
     id: number;
@@ -32,7 +34,7 @@ Categorie.init({
     },
     index: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: true
+        allowNull: true,
     },
     title: {
         type: new DataTypes.STRING(256),
@@ -59,5 +61,8 @@ Categorie.init({
   sequelize
 })
 
+Categorie.hasMany(CatUnit, {as: "Units"});
+
 //sequelize.sync({ force: true });
+
 

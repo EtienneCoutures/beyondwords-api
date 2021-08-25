@@ -29,7 +29,7 @@ Unit.init({
     index: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true
-    },
+    },  
     title: {
         type: new DataTypes.STRING(256),
         allowNull: false,
@@ -49,4 +49,5 @@ Unit.init({
 
 
 //sequelize.sync({ force: true });
+
 

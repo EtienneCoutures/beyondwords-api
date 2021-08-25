@@ -1,34 +1,34 @@
 import { Model, DataTypes } from 'sequelize';
+import { Categorie } from './categorie.model';
 import sequelize from './index'
-import { UserCat } from './user_cat.model';
+import { User } from './user.model';
 
 
-interface UserAttributes {
-  id: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  phone: string;
-  address: string;
+interface FormateurAttributes {
+   id: number;
+   firstname: string;
+   lastname: string;
+   phone: string;
+   email: string;
+   description: string;
+   url: string;
 }
 
 
-export class User extends Model<UserAttributes> implements UserAttributes {
+export class Formateur extends Model<FormateurAttributes> implements FormateurAttributes {
   public id!: number;
   public firstname!: string;
   public lastname!: string;
-  public email!: string;
-  public password!: string;
   public phone!: string;
-  public address!: string;
-
+  public email!: string;
+  public description!: string;
+  public url!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-User.init({
+Formateur.init({
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -47,24 +47,26 @@ User.init({
     allowNull: false,
     unique: true,
   },
-  password: {
-    type: new DataTypes.STRING(128),
-    allowNull: false,
-  },
   phone: {
     type: new DataTypes.STRING(64),
     allowNull: false,
   },
-  address: {
+  description: {
+    type: new DataTypes.TEXT,
+    allowNull: true,
+  },
+  url: {
     type: new DataTypes.STRING(256),
     allowNull: false,
-  },
+  }
 }, {
-  tableName: 'User',
+  tableName: 'Formateur',
   sequelize
 })
 
-User.hasMany(UserCat, {as: "Categories"});
+Formateur.hasMany(User, {as: "Users"});
+Formateur.hasMany(Categorie, {as: "Users"});
+
 //let debug: any
 //sequelize.sync({ force: true });
 
