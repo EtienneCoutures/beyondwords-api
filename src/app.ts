@@ -10,8 +10,6 @@ import { sequelize_config } from './config/sequelizeConfig';
 import passport from 'passport';
 import cors from 'cors';
 
-//const cors = require('cors');
-
 const port: number = 8080;
 
 class Beyond {
@@ -40,7 +38,6 @@ class Beyond {
 
         initRoutes(this.app);
 
-
         this.app.listen(port, () => {
             console.log("Serveur à l'écoute sur le port : ", port)
         })
@@ -66,6 +63,26 @@ class Beyond {
 
 export const beyond = new Beyond();
 
+// (async () => {
+//     const test = await beyond.sequelize.sync({ force: true });
+//     console.log("test : ", test)
+// })();
+
+
+// (async () => {
+//     const user = await User.findOne({where: {firstname: 'Bobiii'}})
+//     const cat = await Categorie.findOne();
+//     const unit = await Unit.findOne();
+
+//     user.addCategories(cat);
+//     cat.addUnits(unit);
+
+//     console.log("user : ", user)
+//     console.log("cat : ", cat)
+//     console.log("unit : ", unit)
+
+// })();
+
 /*(async () => {
     let test = await beyond.sequelize.sync({ force: true });
     console.log("test : ", test)
@@ -74,43 +91,55 @@ export const beyond = new Beyond();
 
 
 
-/*const user = new User();
-user.firstname = "Bob";
-user.lastname = "Foo";
-user.email = "test@test.Fr";
-user.phone = "0677112233";
-user.password = 'testtest'
-user.address = "Rue du test";
-user.save().then(user => { console.log("user : ", user)}).catch(err => {
-    console.log("err -> ", err)
-});
+// User.findOne({where: {firstname: 'Bob'}}).then(user => { console.log('user !', user)})
+//  const user = new User();
+//  user.firstname = "Bob";
+//  user.lastname = "Foo";
+//  user.email = "test@test.Fr";
+//  user.phone = "0677112233";
+//  user.password = 'testtest'
+//  user.address = "Rue du test";
+//  user.save().then(user => { console.log("user : ", user)}).catch(err => {
+//      console.log("err -> ", err)
+//  });
 
-const categorie = new Categorie();
-categorie.index = 0;
-categorie.title = "titre test";
-categorie.img = "img test";
-categorie.label = "label test";
-categorie.eval_intro = "intro test";
-categorie.eval_mid = "mid test";
-categorie.save().then(categorie => { console.log("categorie : ", categorie)}).catch(err => {
-    console.log("err -> ", err)
-});
+//  const user = new User();
+//  user.firstname = "Bobiii";
+//  user.lastname = "Fooiiiii";
+//  user.email = "test@tesiiiiit.Fr";
+//  user.phone = "0677112233";
+//  user.password = 'testtest'
+//  user.address = "Rue du test";
+//  user.save().then(user => { console.log("user : ", user)}).catch(err => {
+//      console.log("err -> ", err)
+//  });
 
-const unit = new Unit();
-unit.index = 0;
-unit.title = "titre test"
-unit.img = "img test";
-unit.label = "label test";
-unit.save().then(unit => { console.log("unit : ", unit)}).catch(err => {
-    console.log("err -> ", err)
-});
+//  const categorie = new Categorie();
+//  categorie.index = 0;
+//  categorie.title = "titre test";
+//  categorie.img = "img test";
+//  categorie.label = "label test";
+//  categorie.eval_intro = "intro test";
+//  categorie.eval_mid = "mid test";
+//  categorie.save().then(categorie => { console.log("categorie : ", categorie)}).catch(err => {
+//      console.log("err -> ", err)
+// });
 
-const user_cat = new UserCat();
-user_cat.user_id = 1;
-user_cat.cat_id = 1;
-user_cat.save().then(user_cat => { console.log("user_cat : ", user_cat)}).catch(err => {
-    console.log("err -> ", err)
-});*/
+// const unit = new Unit();
+// unit.index = 0;
+// unit.title = "titre test"
+// unit.img = "img test";
+// unit.label = "label test";
+// unit.save().then(unit => { console.log("unit : ", unit)}).catch(err => {
+//     console.log("err -> ", err)
+// });
+
+// const user_cat = new UserCat();
+// user_cat.user_id = 1;
+// user_cat.cat_id = 1;
+// user_cat.save().then(user_cat => { console.log("user_cat : ", user_cat)}).catch(err => {
+//     console.log("err -> ", err)
+// });
 
 //console.log("Is it true ? : ", User === this.sequelize.models.User); // true
 /*(async () => {
@@ -119,3 +148,4 @@ user_cat.save().then(user_cat => { console.log("user_cat : ", user_cat)}).catch(
     // console.log("yass queen :", sequelize)
     // Code here
 })();¨*/
+

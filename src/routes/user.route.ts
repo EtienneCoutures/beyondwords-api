@@ -6,10 +6,14 @@ import passport from 'passport'
 export function routes(app: Express) {
 
   app.get('/api/users', UserController.UserGet.list)
-  app.post('/api/login', UserController.UserLogin.login);
-  //app.post('/api/appUsers', UserController.UserGet.create)
-  //app.post('/api/appUsers/login', UserController.UserGet.login)
+  app.get('/api/users/:usr_id/categories', UserController.UserGet.categories)
+
+
+
+  app.post('/api/login', passport.authenticate('session', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  }), UserController.UserLogin.login);
+  
 }
 
-
-// passport.authenticate('local', { successRedirect: '/',failureRedirect: '/login' })

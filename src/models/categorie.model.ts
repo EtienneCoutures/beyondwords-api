@@ -1,11 +1,10 @@
-import { Model, DataTypes } from 'sequelize';
-import { CatUnit } from './cat_unit.model';
+import { BelongsToManyAddAssociationMixin, BelongsToManyCountAssociationsMixin, BelongsToManyCreateAssociationMixin, BelongsToManyGetAssociationsMixin, BelongsToManyHasAssociationMixin, DataTypes } from 'sequelize';
 import sequelize from './index'
+import { Model } from 'sequelize-typescript'
 import { Unit } from './unit.model';
 
 interface CategorieAttributes {
-    id: number;
-    index: number; //index d'apparition
+    index: number;
     title: string;
     img: string;
     label: string;
@@ -14,13 +13,18 @@ interface CategorieAttributes {
 }
 
 export class Categorie extends Model<CategorieAttributes> implements CategorieAttributes {
-    public id!: number;
     public index!: number;
     public title!: string;
     public img!: string;
     public label!: string;
     public eval_intro!: string;
     public eval_mid!: string;
+
+    public getUnits!: BelongsToManyGetAssociationsMixin<Unit>;
+    public addUnits!: BelongsToManyAddAssociationMixin<Unit, number>;
+    public hasUnits!: BelongsToManyHasAssociationMixin<Unit, number>;
+    public countUnits!: BelongsToManyCountAssociationsMixin;
+    public createUnits!: BelongsToManyCreateAssociationMixin<Unit>;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -57,12 +61,14 @@ Categorie.init({
         allowNull: true,
     }
 }, {
-  tableName: 'Categorie',
-  sequelize
+    tableName: 'Categorie',
+    sequelize
 })
 
-Categorie.hasMany(CatUnit, {as: "Units"});
+Categorie.belongsToMany(Unit, { through: 'Cat_Unit' });
+Unit.belongsToMany(Categorie, { through: 'Cat_Unit' });
 
-//sequelize.sync({ force: true });
+
+// sequelize.sync({ force: true });
 
 

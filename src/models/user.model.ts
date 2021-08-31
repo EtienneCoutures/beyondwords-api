@@ -1,10 +1,9 @@
-import { Model, DataTypes } from 'sequelize';
+import { BelongsToManyAddAssociationMixin, BelongsToManyCountAssociationsMixin, BelongsToManyCreateAssociationMixin, BelongsToManyGetAssociationsMixin, BelongsToManyHasAssociationMixin, DataTypes } from 'sequelize';
+import { Categorie } from './categorie.model';
 import sequelize from './index'
-import { UserCat } from './user_cat.model';
-
+import { Model } from 'sequelize-typescript'
 
 interface UserAttributes {
-  id: number;
   firstname: string;
   lastname: string;
   email: string;
@@ -15,7 +14,6 @@ interface UserAttributes {
 
 
 export class User extends Model<UserAttributes> implements UserAttributes {
-  public id!: number;
   public firstname!: string;
   public lastname!: string;
   public email!: string;
@@ -23,6 +21,11 @@ export class User extends Model<UserAttributes> implements UserAttributes {
   public phone!: string;
   public address!: string;
 
+  public getCategories!: BelongsToManyGetAssociationsMixin<Categorie>;
+  public addCategories!: BelongsToManyAddAssociationMixin<Categorie, number>;
+  public hasCategories!: BelongsToManyHasAssociationMixin<Categorie, number>;
+  public countCategories!: BelongsToManyCountAssociationsMixin;
+  public createCategories!: BelongsToManyCreateAssociationMixin<Categorie>;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -64,7 +67,8 @@ User.init({
   sequelize
 })
 
-User.hasMany(UserCat, {as: "Categories"});
-//let debug: any
-//sequelize.sync({ force: true });
+User.belongsToMany(Categorie, {through: 'User_Cat'});
+Categorie.belongsToMany(User, {through: 'User_Cat'});
+
+// sequelize.sync({ force: true });
 
