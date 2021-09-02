@@ -5,11 +5,13 @@
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
   },
   "target": "es6", // or a more recent ecmascript version
-  "experimentalDecorators": true,
-  "emitDecoratorMetadata": true,
+  // "experimentalDecorators": true,
+  // "emitDecoratorMetadata": true,
   "lib": [
     "es2015"
   ]
