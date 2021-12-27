@@ -1,37 +1,28 @@
-'use strict';
+import Categorie from "./Categorie.js";
+import User from "./User.js";
+import Unit from './Unit.js';
+import Content from './Content.js';
+import Unit_Content from "./Unit_Content.js";
+import Tag from "./Tag.js";
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+/* User cat association*/
+User.belongsToMany(Categorie, { through: 'User_Cat', foreignKey: 'UserID' });
+Categorie.belongsToMany(User, { through: 'User_Cat', foreignKey: 'CategorieID' });
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// /* Cat unit association */
+Categorie.belongsToMany(Unit, { through: 'Cat_Unit', foreignKey: 'CategorieID' });
+Unit.belongsToMany(Categorie, { through: 'Cat_Unit', foreignKey: 'UnitID' });
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+Tag.hasMany(Categorie);
+Categorie.belongsTo(Tag);
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+// /* Unit Content Association */
+Unit.hasMany(Unit_Content);
+Unit_Content.belongsTo(Unit);
+
+Unit_Content.hasMany(Content, {
+    as: "contents"
 });
+Content.belongsTo(Unit_Content)
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+export { User, Categorie, Unit, Content, Tag, Unit_Content };
