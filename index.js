@@ -43,4 +43,4 @@ app.use(Router);
 app.listen(port, () => console.log('Server running at http://localhost:' + port));
 
 // Todo find a way to do it only if not created
-// createDB();
+ createDB();
